@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registration</title>
 </head>
 <body>
-    <h2>Welcome to the Student Registration API</h2>
-    <button onclick="window.location.href='/register.html'">Register</button>
+    <h2>Welcome to Student Registration</h2>
+    <button onclick="goToRegister()">Register</button>
+
+    <script>
+        function goToRegister() {
+            window.location.href = "/register.html";
+        }
+    </script>
 </body>
 </html>
 
