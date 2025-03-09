@@ -24,6 +24,11 @@ pool.query(`
     )
 `);
 
+// ✅ Root Route (Fixes "Cannot GET /" issue)
+app.get("/", (req, res) => {
+    res.send("Welcome to the Student Registration API!");
+});
+
 // Register Student API
 app.post("/register", async (req, res) => {
     const { name, email, age, course } = req.body;
@@ -38,5 +43,8 @@ app.post("/register", async (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+// ✅ Use process.env.PORT for Render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
