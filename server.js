@@ -2,10 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // PostgreSQL Connection
 const pool = new Pool({
@@ -24,9 +26,12 @@ pool.query(`
     )
 `);
 
-// ✅ Root Route (Fixes "Cannot GET /" issue)
+// ✅ Serve static HTML files
+app.use(express.static("public"));
+
+// ✅ Home Page (Displays Register Button)
 app.get("/", (req, res) => {
-    res.send("Welcome to the Student Registration API!");
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Register Student API
@@ -46,5 +51,4 @@ app.post("/register", async (req, res) => {
 // ✅ Use process.env.PORT for Render
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
 
