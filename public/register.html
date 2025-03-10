@@ -59,19 +59,32 @@
         document.getElementById("registerForm").addEventListener("submit", async function(event) {
             event.preventDefault();
             
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const age = document.getElementById("age").value;
-            const course = document.getElementById("course").value;
+            const name = document.getElementById("name");
+            const email = document.getElementById("email");
+            const age = document.getElementById("age");
+            const course = document.getElementById("course");
 
             const response = await fetch("/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, age, course })
+                body: JSON.stringify({ 
+                    name: name.value, 
+                    email: email.value, 
+                    age: age.value, 
+                    course: course.value 
+                })
             });
 
             const result = await response.json();
             alert(result.message || result.error);
+
+            if (response.ok) {
+                // Clear input fields after successful submission
+                name.value = "";
+                email.value = "";
+                age.value = "";
+                course.value = "";
+            }
         });
     </script>
 </body>
